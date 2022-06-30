@@ -943,14 +943,14 @@ class Restful_Action extends Typecho_Widget implements Widget_Interface_Do
 
         if (method_exists($contentWidget, 'markdown')) {
             $value = $contentWidget->filter($value);
-            $value['text'] = $contentWidget->markdown($value['text']);
-            $value['digest'] = $contentWidget->markdown($value['digest']);
+            if ($value['text']) $value['text'] = $contentWidget->markdown($value['text']);
+            if ($value['digets']) $value['digest'] = $contentWidget->markdown($value['digest']);
         } else {
             // Typecho 0.9 compatibility
             $value['type'] = isset($value['type']) ? $value['type'] : null;
             $value = $contentWidget->filter($value);
-            $value['text'] = MarkdownExtraExtended::defaultTransform($value['text']);
-            $value['digest'] = MarkdownExtraExtended::defaultTransform($value['digest']);
+            if ($value['text']) $value['text'] = MarkdownExtraExtended::defaultTransform($value['text']);
+            if ($value['digets']) $value['digest'] = MarkdownExtraExtended::defaultTransform($value['digest']);
 
             if ($value['type'] === null) {
                 unset($value['type']);
